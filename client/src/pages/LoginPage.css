@@ -1,0 +1,69 @@
+/*
+CSS working scheme:
+display stuff (display, flex-direction, gap, column, ...)
+positioning stuff (position, top, z-index, ...)
+box-model stuff (background, height, padding, ...)
+typography
+manipulation (transform, opacity, ...)
+miscellaneous (border, box-shadow, ...)
+*/
+.login-page__logo {
+  padding-top: 2.1rem;
+  width: 100%;
+}
+
+.login-page {
+  position: relative;
+  /*display stuff*/
+  display: flex;
+  flex-direction: column;
+  /* gap: 2rem; */
+  /*positioning stuff*/
+  justify-content: center;
+  align-items: center;
+
+  /*box-model stuff*/
+  height: 100%;
+  width: 100%;
+  background-color: rgb(var(--color-white));
+}
+
+.login-page__input {
+  /*box-model*/
+  width: 100%;
+}
+
+.login-page__seperator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-block: 0.6em;
+  color: rgb(var(--color-gray-medium));
+}
+
+.login-page__seperator::after {
+  margin-left: 1rem;
+  display: inline-block;
+  content: '';
+  width: 50%;
+  height: 1px;
+  background-color: rgb(var(--color-gray-medium), 0.3);
+}
+
+.login-page__seperator::before {
+  display: inline-block;
+  height: 1px;
+  width: 50%;
+  content: '';
+  margin-right: 1rem;
+  background-color: rgb(var(--color-gray-medium), 0.3);
+}
+
+@media (max-width: 45em) {
+  .login-page .form {
+    box-shadow: none;
+    padding: 0;
+    width: 23rem;
+  }
+}

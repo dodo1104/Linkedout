@@ -1,0 +1,136 @@
+.btn-1 {
+  background-color: transparent;
+  color: rgb(var(--color-linkedin-blue));
+  border: 1px solid rgb(var(--color-linkedin-blue));
+  border-radius: 20em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-1:hover {
+  background-color: rgba(var(--color-linkedin-blue), 0.1);
+  color: rgb(0, 89, 136);
+}
+
+.btn-2 {
+  background-color: transparent;
+  color: rgb(var(--color-linkedin-blue));
+  border: 1px solid rgb(var(--color-linkedin-blue));
+  border-radius: 20em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-2:hover {
+  box-shadow: 0px 0px 0px 1px rgba(var(--color-linkedin-blue)) inset;
+  background-color: rgba(var(--color-linkedin-blue), 0.1);
+}
+
+.btn-3 {
+  background-color: rgb(var(--color-linkedin-blue));
+  color: rgb(var(--color-white));
+  border: 1px solid rgb(var(--color-linkedin-blue));
+  border-radius: 20em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-3:hover {
+  background: linear-gradient(
+      to right,
+      rgba(var(--color-black), 0.1),
+      rgba(var(--color-black), 0.1)
+    ),
+    linear-gradient(
+      to right,
+      rgb(var(--color-linkedin-blue)),
+      rgb(var(--color-linkedin-blue))
+    );
+}
+
+.btn-4 {
+  background-color: transparent;
+  color: rgb(var(--color-linkedin-blue));
+  border: none;
+  border-radius: 0.2em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-4:hover {
+  background-color: rgba(var(--color-linkedin-blue), 0.1);
+}
+.btn-4--gray {
+  background-color: transparent;
+  color: rgb(var(--color-gray-medium));
+  border: none;
+  border-radius: 0.2em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-4--gray:hover {
+  background-color: rgba(var(--color-gray-medium), 0.1);
+}
+
+.btn-5 {
+  background-color: transparent;
+  color: rgb(var(--color-gray-medium));
+  border: none;
+  border-radius: 0.2em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-5:hover {
+  background-color: rgba(var(--color-gray-medium), 0.1);
+}
+
+.btn-6 {
+  background-color: transparent;
+  color: rgb(var(--color-linkedin-blue));
+  border: none;
+  border-radius: 20em;
+  padding-block: 0.4em;
+  padding-inline: 0.4em;
+}
+
+.btn-6:hover {
+  background-color: rgba(var(--color-linkedin-blue), 0.1);
+}
+
+.btn-7 {
+  background-color: transparent;
+  color: rgb(var(--color-gray-medium));
+  border: 1px solid rgb(var(--color-gray-medium));
+  border-radius: 20em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-7:hover {
+  box-shadow: 0px 0px 0px 1px rgba(var(--color-gray-medium)) inset;
+  background-color: rgba(var(--color-gray-medium), 0.1);
+}
+
+.btn-7--green {
+  background-color: transparent;
+  color: rgb(var(--color-accent-green));
+  border: 1px solid rgb(var(--color-accent-green));
+  border-radius: 20em;
+  padding-block: 0.6em;
+  padding-inline: 0.4em;
+}
+
+.btn-7--green:hover {
+  box-shadow: 0px 0px 0px 1px rgba(var(--color-accent-green)) inset;
+  background-color: rgba(var(--color-accent-green), 0.1);
+}
+
+.btn--p-block-400 {
+  padding-block: 1em;
+}
+
+.btn--wide {
+  width: 100%;
+}

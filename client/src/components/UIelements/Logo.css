@@ -1,0 +1,19 @@
+.logo {
+  color: rgb(var(--color-linkedin-blue));
+  font-weight: var(--fw-600);
+  font-size: inherit;
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo__suffix {
+  color: rgb(var(--color-white));
+  background-color: rgb(var(--color-linkedin-blue));
+  border-radius: 0.1em;
+  display: inline-block;
+  padding-inline: 0.1em;
+  line-height: 1em;
+}

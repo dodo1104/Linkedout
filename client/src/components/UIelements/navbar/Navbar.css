@@ -1,0 +1,132 @@
+.navbar {
+  --navbar-list-item-color: var(--color-gray-medium);
+
+  position: fixed;
+  width: 100%;
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  z-index: 1000;
+  padding-inline: calc(var(--container-padding) / 2 - var(--info-box-padding));
+  /* box-shadow: 0px 0.6rem 15px 0px rgba(104, 104, 104, 0.2); */
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.navbar ul {
+  display: flex;
+}
+
+.navbar li {
+  width: 6.7em;
+  font-size: var(--fs-400);
+  cursor: pointer;
+  position: relative;
+}
+
+.navbar__right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__exit a {
+  cursor: pointer;
+}
+
+.navbar__exit a path {
+  fill: transparent;
+  stroke: rgba(var(--color-accent-red), 1);
+}
+
+.navbar__exit a:hover path,
+.navbar__exit a:focus path {
+  stroke: rgba(var(--color-accent-red), 0.5);
+}
+
+.navbar__item-line {
+  position: absolute;
+  bottom: calc(
+    var(--info-box-padding) * -1
+  ); /*start from the bottom and than down all the padding*/
+  left: 50%;
+  background-color: rgba(var(--navbar-list-item-color), 0.82);
+  filter: brightness(50%);
+  width: 0;
+  height: 0.15em;
+  transition: width, 0.6s ease-out;
+}
+
+.navbar__item--selected {
+  left: 0;
+  width: 100%;
+  filter: brightness(50%);
+}
+
+.navbar li > a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgba(var(--navbar-list-item-color), 0.82);
+}
+
+.navbar li > a:hover,
+navbar li > a:focus {
+  text-decoration: none;
+  filter: brightness(50%);
+}
+
+.navbar__left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbar__input {
+  width: 100%;
+  position: relative;
+}
+
+.navbar__left input {
+  /* height: 2rem;
+  line-height: 1rem; */
+  padding-left: 2em;
+  width: 40%;
+}
+
+.navbar__input--narrow {
+  animation: decreaseWidth 0.3s linear;
+  animation-fill-mode: forwards;
+}
+
+.navbar__left input:focus {
+  animation: increaseWidth 0.3s linear;
+  animation-fill-mode: forwards;
+}
+
+.navbar .logo {
+  margin-right: 0.2em;
+}
+
+.navbar svg {
+  fill: rgba(var(--navbar-list-item-color), 0.82);
+
+  font-size: var(--fs-600);
+}
+
+@keyframes increaseWidth {
+  0% {
+    width: 40%;
+  }
+  100% {
+    width: 65%;
+  }
+}
+@keyframes decreaseWidth {
+  0% {
+    width: 65%;
+  }
+  100% {
+    width: 40%;
+  }
+}

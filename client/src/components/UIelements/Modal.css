@@ -1,0 +1,44 @@
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: calc(100vh - 3.6rem);
+
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(2px);
+  z-index: 1001;
+  transition: opacity 0.3s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal__child {
+  opacity: 0;
+  width: 40%;
+  height: 50%;
+  background-color: white;
+  padding: 0.5em 1em;
+  /*position relative without offsetRef = modal__child centered perfectly.
+  position relative with offsetRef = modal__child centered not perfectly.
+  position absolute without offsetRef = modal__child good Y, not good X.
+  position absolute with offsetRef = modal__child good Y, good X. */
+}
+
+.modal__child--open {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all, 0.4s;
+  transition-delay: 0.1s;
+}
+
+.modal-slide__modal {
+  transform: translateY(3.5rem); /*3.5 = 56px*/
+}
+
+.modal-slide__child {
+  transform: translateY(-7px);
+}
+
+.modal--full-vh {
+  height: 100vh;
+}

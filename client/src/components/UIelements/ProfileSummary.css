@@ -1,0 +1,27 @@
+.profile-summary {
+  display: flex;
+  gap: 0.7em;
+  background-color: rgba(var(--color-gray-light), 0.12);
+  border-radius: 4px;
+}
+
+.profile-summary:hover {
+  background-color: rgba(var(--color-gray-light), 0.21);
+  cursor: pointer;
+}
+
+.profile-summary__img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-summary__img :first-child {
+  width: 2em;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.profile-summary__text :first-child {
+  text-transform: capitalize;
+}

@@ -1,0 +1,51 @@
+.custom-input {
+  /* display: inline-block; */
+  font-family: var(--ff-primary);
+  font-size: 1rem;
+  position: relative;
+}
+
+.custom-input * {
+  font-size: inherit;
+  font-weight: 400;
+}
+
+.custom-input__label {
+  position: absolute;
+  top: 0.1em;
+  left: 0.7rem;
+  display: block;
+  color: rgb(var(--color-gray-medium));
+  z-index: 100;
+  font-size: 0.9em;
+  transform: scale(1) translateY(0);
+  transition: scale, 0.2s, translate, 0.2s;
+  transform-origin: 0px;
+}
+
+.custom-input__div {
+  position: relative;
+}
+
+.custom-input__input {
+  border: 1px solid rgb(var(--color-gray-dark));
+  padding-top: 1.7em;
+  transition: outline 0.2s;
+}
+
+.custom-input__input:focus,
+.custom-input__input:target {
+  border-color: rgb(var(--color-gray-dark));
+}
+
+.custom-input__button {
+  position: absolute;
+  right: 0.4em;
+  top: 50%;
+  transform: translate(0, -50%);
+  transition: background-color, 0.1s;
+}
+
+.custom-input__button:hover {
+  background-color: rgba(var(--color-accent-blue), 0.2);
+}

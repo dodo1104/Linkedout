@@ -1,0 +1,7 @@
+.tran-scale-move-vertical {
+  --tran-scale-move-vertical-scale: 1.4;
+  --tran-scale-move-vertical-trans: 0.63em;
+
+  transform: scale(var(--tran-scale-move-vertical-scale))
+    translateY(var(--tran-scale-move-vertical-trans));
+}

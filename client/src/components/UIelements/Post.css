@@ -1,0 +1,46 @@
+/* .post > .info-box > div {
+  border: 1px solid black;
+} */
+
+.post > .info-box {
+  padding: 0.7em;
+}
+
+.post__header {
+  display: flex;
+  gap: 1em;
+}
+
+.post__header__avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post__header__avatar > img {
+  height: 2em;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.post__header__text {
+  text-align: start;
+}
+
+.post__header__text p {
+  line-height: 1.3rem;
+}
+
+.post__header__text p[data-label='name'] {
+  text-transform: capitalize;
+}
+
+.post__message {
+  padding-block: 0.5rem;
+}
+
+.post__message__file {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

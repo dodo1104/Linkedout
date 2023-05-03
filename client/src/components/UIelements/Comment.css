@@ -1,0 +1,52 @@
+.comment {
+  --comment-sections-gap: 1.6em;
+
+  display: flex;
+  gap: var(--comment-sections-gap, 1em);
+  font-size: 1.1rem;
+  justify-content: start;
+  align-items: center;
+  background-color: rgb(250, 250, 250);
+  border: 1px solid rgba(var(--color-gray-light), 0.7);
+  /* padding: 0.2em 0.8em; */
+  border-radius: 0.5em;
+}
+
+.comment__img:has(:not(img)) {
+  font-size: 2em;
+}
+.comment__img:has(img) {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+}
+
+.comment__info {
+  position: relative;
+  line-height: 1.1em;
+}
+
+.comment__info__name,
+.comment__info__desc::first-letter {
+  text-transform: capitalize;
+}
+
+.comment__info__text {
+  margin-top: 0.5em;
+}
+
+.comment__info::before {
+  position: absolute;
+  /* font-size: 1.1rem; */
+  top: 50%;
+  left: calc(
+    var(--comment-sections-gap, 1em) / -2 - 4px
+  ); /*-2px supposed to be minus 50% of the length of the line but it needs fixes to look better*/
+  transform: translateY(-50%);
+  content: '';
+  display: block;
+  background-color: rgba(var(--color-gray-light), 0.35);
+  width: 4px;
+  height: 100%;
+  border-radius: 3px;
+}

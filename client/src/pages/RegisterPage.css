@@ -1,0 +1,77 @@
+/*
+CSS working scheme:
+display stuff (display, flex-direction, gap, column, ...)
+positioning stuff (position, top, z-index, ...)
+box-model stuff (background, height, padding, ...)
+typography
+manipulation (transform, opacity, ...)
+miscellaneous (border, box-shadow, ...)
+*/
+.register-page {
+  background-color: var(--lightgray-color);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.register-page__logo {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  padding-top: 2.1rem;
+  width: 100%;
+}
+
+.register-page__form {
+  width: 25em;
+  box-shadow: 0px 4px 10px 0px rgba(52, 52, 52, 0.1);
+}
+
+.register-page__seperator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-block: 0.6em;
+  color: rgb(var(--color-gray-medium));
+}
+
+.register-page__seperator::after {
+  margin-left: 1rem;
+  display: inline-block;
+  content: '';
+  width: 50%;
+  height: 1px;
+  background-color: rgb(var(--color-gray-medium), 0.3);
+}
+
+.register-page__seperator::before {
+  display: inline-block;
+  height: 1px;
+  width: 50%;
+  content: '';
+  margin-right: 1rem;
+  background-color: rgb(var(--color-gray-medium), 0.3);
+}
+
+@media (max-width: 1100px) {
+  .register-page {
+    background-color: var(--white-color);
+  }
+  .register-page__form {
+    margin-top: 0rem;
+    box-shadow: none;
+    /* width: 55%; */
+    min-width: 45em;
+  }
+}
+@media (max-width: 45em) {
+  .register-page__form {
+    width: calc(100% + var(--container-padding) / 2);
+    min-width: 0;
+  }
+}
