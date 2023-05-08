@@ -46,14 +46,16 @@ export default class ImageFile extends React.Component {
     const { file } = this.state;
     return (
       <div>
-        <label htmlFor={this.state.id} className="button">
+        {/* <label htmlFor={this.state.id} className="button">
           Upload an image
-        </label>
+        </label> */}
         <input
-          id={this.state.id}
+          // id={this.state.id}
+          id="click"
           type="file"
           onChange={this.handleChange.bind(this)}
           className="show-for-sr"
+          style={{ display: 'none' }}
         />
         {/* {imgTag} */}
         {file && (

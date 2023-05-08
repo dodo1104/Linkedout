@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { CgProfile } from 'react-icons/cg';
 import { AiFillCloseCircle } from 'react-icons/ai';
 
@@ -14,6 +14,11 @@ const NewPost = ({ avatar, name, toggleModal }) => {
     Image: '',
     Video: ''
   });
+  const spanRef = useRef();
+
+  useEffect(() => {
+    if (spanRef.current) spanRef.current.focus();
+  }, [spanRef]);
 
   return (
     <div className="new-post">
@@ -41,6 +46,7 @@ const NewPost = ({ avatar, name, toggleModal }) => {
 
       <div className="new-post__text">
         <span
+          ref={spanRef}
           role="textbox"
           contentEditable={true}
           placeholder="What do you want to talk about?"
@@ -48,15 +54,15 @@ const NewPost = ({ avatar, name, toggleModal }) => {
         <ImageFile />
       </div>
       <div className="new-post__bottom m-t-s-8">
-        {/* <ul className="flex">
+        <ul className="flex">
           {createPostItems.map((item) => {
             return (
-              <li key={item.id} className="new-post__li">
-                
-              </li>
+              <label htmlFor="click" key={item.id} className="new-post__li">
+                {item.icon}
+              </label>
             );
           })}
-        </ul> */}
+        </ul>
       </div>
     </div>
   );
