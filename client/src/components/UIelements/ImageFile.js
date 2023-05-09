@@ -7,13 +7,10 @@ export default class ImageFile extends React.Component {
     this.state = {
       id: 'someUniqueId', // I would use this.props.id for a real world implementation
       imageURI: null,
-      file: null
+      file: null,
+      label: 'Image'
     };
   }
-
-  // componentDidUpdate() {
-  //   console.log(this.props.item);
-  // }
 
   buildImgTag() {
     let imgTag = null;
@@ -39,37 +36,54 @@ export default class ImageFile extends React.Component {
   }
 
   handleChange(e) {
+    const targetFile = e.target.files[0];
     this.readURI(e); // maybe call this with webworker or async library?
-    console.log(e.target.files[0]);
-    this.setState({ file: e.target.files[0] });
+    console.log(targetFile);
+    targetFile && this.setState({ file: targetFile });
     if (this.props.onChange !== undefined) this.props.onChange(e); // propagate to parent component
   }
 
   render() {
     const imgTag = this.buildImgTag();
-    const { file } = this.state;
+    const { file, label } = this.state;
+
     return (
       <div>
         {/* <label htmlFor={this.state.id} className="button">
           Upload an image
         </label> */}
+
         <input
           // id={this.state.id}
-          id="click"
+          id="inputImage"
           type="file"
-          onChange={this.handleChange.bind(this)}
-          className="show-for-sr"
-          style={{ display: 'none' }}
-          accept={this.props.item.accept}
+          onChange={(e) => {
+            this.handleChange(e);
+            this.setState({ label: 'Image' });
+          }}
+          className="dis-hidden"
+          accept=".jpeg, .jpg, .png"
         />
-        {/* {imgTag} */}
+
+        <input
+          // id={this.state.id}
+          id="inputVideo"
+          type="file"
+          onChange={(e) => {
+            this.handleChange(e);
+            this.setState({ label: 'Video' });
+          }}
+          className="dis-hidden"
+          accept=".mp3,.mp4"
+        />
+
         {file && <h3>{file.name}</h3>}
-        {file && this.props.item.label === 'Video' ? (
-          <div>
+        {file && label === 'Video' ? (
+          <div key={file.name}>
             <Player file={file} />
           </div>
         ) : (
-          imgTag
+          label === 'Image' && imgTag
         )}
       </div>
     );

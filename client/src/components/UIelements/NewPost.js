@@ -12,7 +12,6 @@ const NewPost = ({ avatar, name, toggleModal }) => {
   const [text, setText] = useState('');
   const [isSpanValue, setIsSpanValue] = useState(false);
   const [isSpanFocused, setIsSpanFocused] = useState(true);
-  const [item, setItem] = useState({});
   const [files, setFiles] = useState({
     Image: '',
     Video: ''
@@ -56,7 +55,6 @@ const NewPost = ({ avatar, name, toggleModal }) => {
             const { innerHTML } = e.target;
             setText(innerHTML);
             innerHTML === '' ? setIsSpanValue(false) : setIsSpanValue(true);
-            // alert('i');
           }}
           onFocus={() => setIsSpanFocused(true)}
           onBlur={() => setIsSpanFocused(false)}
@@ -68,17 +66,16 @@ const NewPost = ({ avatar, name, toggleModal }) => {
             </p>
           )}
         </span>
-        <ImageFile item={item} />
+        <ImageFile />
       </div>
       <div className="new-post__bottom m-t-s-8">
         <ul className="flex">
           {createPostItems.map((item) => {
             return (
               <label
-                htmlFor="click"
+                htmlFor={`input${item.label}`}
                 key={item.id}
                 className="new-post__li"
-                onClick={() => setItem(item)}
               >
                 {item.icon}
               </label>
