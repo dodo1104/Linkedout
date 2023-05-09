@@ -64,3 +64,8 @@ label.new-post__li:active {
 .new-post__li > input {
   display: none;
 }
+
+.new-post__placeholder {
+  font-size: inherit;
+  color: rgba(var(--color-gray-dark), 0.5);
+}

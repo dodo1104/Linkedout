@@ -10,15 +10,17 @@ import ImageFile from './ImageFile';
 
 const NewPost = ({ avatar, name, toggleModal }) => {
   const [text, setText] = useState('');
+  const [isSpanValue, setIsSpanValue] = useState(false);
+  const [isSpanFocused, setIsSpanFocused] = useState(false);
   const [files, setFiles] = useState({
     Image: '',
     Video: ''
   });
   const spanRef = useRef();
 
-  useEffect(() => {
-    if (spanRef.current) spanRef.current.focus();
-  }, [spanRef]);
+  // useEffect(() => {
+  //   if (spanRef.current) spanRef.current.focus();
+  // }, [spanRef]);
 
   return (
     <div className="new-post">
@@ -49,8 +51,22 @@ const NewPost = ({ avatar, name, toggleModal }) => {
           ref={spanRef}
           role="textbox"
           contentEditable={true}
-          placeholder="What do you want to talk about?"
-        ></span>
+          onInput={(e) => {
+            const { innerHTML } = e.target;
+            setText(innerHTML);
+            innerHTML === '' ? setIsSpanValue(false) : setIsSpanValue(true);
+            // alert('i');
+          }}
+          onFocus={() => setIsSpanFocused(true)}
+          onBlur={() => setIsSpanFocused(false)}
+          innerHTML={text}
+        >
+          {!isSpanValue && !isSpanFocused && (
+            <p className="new-post__placeholder">
+              <i>What do you want to talk about?</i>
+            </p>
+          )}
+        </span>
         <ImageFile />
       </div>
       <div className="new-post__bottom m-t-s-8">
