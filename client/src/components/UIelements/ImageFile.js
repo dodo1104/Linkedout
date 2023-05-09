@@ -11,6 +11,10 @@ export default class ImageFile extends React.Component {
     };
   }
 
+  // componentDidUpdate() {
+  //   console.log(this.props.item);
+  // }
+
   buildImgTag() {
     let imgTag = null;
     if (this.state.imageURI !== null)
@@ -56,13 +60,16 @@ export default class ImageFile extends React.Component {
           onChange={this.handleChange.bind(this)}
           className="show-for-sr"
           style={{ display: 'none' }}
+          accept={this.props.item.accept}
         />
         {/* {imgTag} */}
-        {file && (
+        {file && <h3>{file.name}</h3>}
+        {file && this.props.item.label === 'Video' ? (
           <div>
-            <h3>{file.name}</h3>
             <Player file={file} />
           </div>
+        ) : (
+          imgTag
         )}
       </div>
     );

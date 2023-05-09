@@ -33,6 +33,7 @@
   flex-direction: column;
   padding: 0.5rem;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 3px 12px 0px inset;
+  gap: 0.7rem;
 }
 
 .new-post__text > span {
@@ -69,6 +70,7 @@ label.new-post__li:active {
 .new-post__placeholder {
   font-size: inherit;
   color: rgba(var(--color-gray-dark), 0.5);
+  pointer-events: none;
 }
 
 .new-post__post-button {

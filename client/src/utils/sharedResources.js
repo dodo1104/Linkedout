@@ -74,7 +74,7 @@ export const createPostItems = [
     id: 1,
     label: 'Image',
     icon: <BsFillImageFill style={{ fill: 'red' }} />,
-    accept: '.pdf,.doc,.docx'
+    accept: '.jpeg, .jpg, .png'
   },
   {
     id: 2,
