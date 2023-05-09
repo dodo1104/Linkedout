@@ -1,6 +1,7 @@
 .new-post {
   /* display: grid; */
   /* grid-template-rows: auto 70% auto; */
+  position: relative;
   height: 100%;
 }
 
@@ -68,4 +69,20 @@ label.new-post__li:active {
 .new-post__placeholder {
   font-size: inherit;
   color: rgba(var(--color-gray-dark), 0.5);
+}
+
+.new-post__post-button {
+  position: absolute;
+  bottom: 0;
+  right: -0.5em;
+  /* padding-bottom: 0.5em; */
+}
+
+.new-post__button {
+  padding: 0.6em 2em;
+}
+
+.new-post__button--invalid {
+  pointer-events: none;
+  opacity: 0.5;
 }

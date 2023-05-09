@@ -11,16 +11,16 @@ import ImageFile from './ImageFile';
 const NewPost = ({ avatar, name, toggleModal }) => {
   const [text, setText] = useState('');
   const [isSpanValue, setIsSpanValue] = useState(false);
-  const [isSpanFocused, setIsSpanFocused] = useState(false);
+  const [isSpanFocused, setIsSpanFocused] = useState(true);
   const [files, setFiles] = useState({
     Image: '',
     Video: ''
   });
   const spanRef = useRef();
 
-  // useEffect(() => {
-  //   if (spanRef.current) spanRef.current.focus();
-  // }, [spanRef]);
+  useEffect(() => {
+    if (spanRef.current) spanRef.current.focus();
+  }, [spanRef]);
 
   return (
     <div className="new-post">
@@ -79,6 +79,16 @@ const NewPost = ({ avatar, name, toggleModal }) => {
             );
           })}
         </ul>
+      </div>
+      <div className="new-post__post-button">
+        <CustomButtonAncher
+          className={`btn-3 new-post__button ${
+            !isSpanValue ? 'new-post__button--invalid' : ''
+          }`}
+          onClick={() => alert('hiiii')}
+        >
+          POST
+        </CustomButtonAncher>
       </div>
     </div>
   );
