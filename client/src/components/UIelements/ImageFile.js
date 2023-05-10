@@ -58,6 +58,7 @@ export default class ImageFile extends React.Component {
           id="inputImage"
           type="file"
           onChange={(e) => {
+            if (e.target.files[0] === undefined) return;
             this.handleChange(e);
             this.setState({ label: 'Image' });
           }}
@@ -70,6 +71,7 @@ export default class ImageFile extends React.Component {
           id="inputVideo"
           type="file"
           onChange={(e) => {
+            if (e.target.files[0] === undefined) return;
             this.handleChange(e);
             this.setState({ label: 'Video' });
           }}
