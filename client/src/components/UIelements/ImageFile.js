@@ -39,7 +39,10 @@ export default class ImageFile extends React.Component {
     const targetFile = e.target.files[0];
     this.readURI(e); // maybe call this with webworker or async library?
     console.log(targetFile);
-    targetFile && this.setState({ file: targetFile });
+    if (targetFile) {
+      this.setState({ file: targetFile });
+      this.props.updateFile(targetFile);
+    }
     if (this.props.onChange !== undefined) this.props.onChange(e); // propagate to parent component
   }
 

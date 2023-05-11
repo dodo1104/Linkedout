@@ -176,6 +176,33 @@ export const fetchComments = (postId, index) => async (dispatch) => {
   //   });
   // }, 1000);
 };
+export const createNewPost =
+  (post = {}) =>
+  async (dispatch) => {
+    const data = new FormData();
+    data.append('file', post.file);
+    data.append('text', post.text);
+
+    const body = JSON.stringify({
+      text: post.text,
+      file: post.file
+    });
+    console.log('createNewPost action');
+    axios({
+      method: 'post',
+      url: '/posts/upload',
+      headers: { 'Content-Type': 'application/json' },
+      data
+    })
+      .then((res) => {
+        const { data } = res;
+        console.log('data:', data);
+      })
+      .catch((error) => {
+        console.log(error);
+        updateCommentsIsLoaded('FAILED');
+      });
+  };
 
 export const updatePostsIsLoaded = (isLoaded) => {
   return {

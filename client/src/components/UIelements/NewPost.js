@@ -5,18 +5,22 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import './NewPost.css';
 import { createPostItems } from '../../utils/sharedResources';
 import CustomButtonAncher from './CustomButtonAncher';
+import { createNewPost } from '../../actions/posts';
 
 import ImageFile from './ImageFile';
+import { connect } from 'react-redux';
 
-const NewPost = ({ avatar, name, toggleModal }) => {
+const NewPost = ({ avatar, name, toggleModal, ...props }) => {
   const [text, setText] = useState('');
   const [isSpanValue, setIsSpanValue] = useState(false);
   const [isSpanFocused, setIsSpanFocused] = useState(true);
-  const [files, setFiles] = useState({
-    Image: '',
-    Video: ''
-  });
+  const [file, setFile] = useState(undefined);
+
   const spanRef = useRef();
+
+  const updateFile = (newFile) => {
+    setFile(newFile);
+  };
 
   useEffect(() => {
     if (spanRef.current) spanRef.current.focus();
@@ -66,7 +70,7 @@ const NewPost = ({ avatar, name, toggleModal }) => {
             </p>
           )}
         </span>
-        <ImageFile />
+        <ImageFile updateFile={updateFile} />
       </div>
       <div className="new-post__bottom m-t-s-8">
         <ul className="flex">
@@ -88,7 +92,13 @@ const NewPost = ({ avatar, name, toggleModal }) => {
           className={`btn-3 new-post__button ${
             !isSpanValue ? 'new-post__button--invalid' : ''
           }`}
-          onClick={() => alert('hiiii')}
+          onClick={() =>
+            file &&
+            props.createNewPost({
+              text,
+              file
+            })
+          }
         >
           POST
         </CustomButtonAncher>
@@ -97,4 +107,6 @@ const NewPost = ({ avatar, name, toggleModal }) => {
   );
 };
 
-export default NewPost;
+export default connect(null, {
+  createNewPost
+})(NewPost);

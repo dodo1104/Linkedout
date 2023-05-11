@@ -29,32 +29,38 @@ const uploadPost = multer({
 //private
 router.post('/upload', auth, uploadPost.single('file'), async (req, res) => {
   const { text = '' } = req.body;
+  const { file } = req;
+  console.log('upload text: ', text);
+  console.log('upload file: ', file);
+  // console.log('upload text: ' + text);
+  // console.log('upload file: ', req);
+  // picked = req.file
+  //   ? (({ buffer, mimetype, size }) => ({ buffer, mimetype, size }))(req.file)
+  //   : null;
 
-  // console.log(req.file);
-  picked = req.file
-    ? (({ buffer, mimetype, size }) => ({ buffer, mimetype, size }))(req.file)
-    : null;
+  // try {
+  //   const profile = await Profile.findOne({ id: req.user.id }).select(
+  //     '_id posts'
+  //   );
+  //   console.log('profile is: ' + profile._id);
+  //   const post = new Post({
+  //     profile: profile._id,
+  //     text,
+  //     file: picked
+  //       ? { ...picked, buffer: picked.buffer.toString('base64') }
+  //       : null
+  //   });
 
-  try {
-    const profile = await Profile.findOne({ id: req.user.id }).select(
-      '_id posts'
-    );
-    console.log('profile is: ' + profile._id);
-    const post = new Post({
-      profile: profile._id,
-      text,
-      file: { ...picked, buffer: picked.buffer.toString('base64') }
-    });
+  //   profile.posts.push(post);
+  //   await post.save();
+  //   await profile.save();
 
-    profile.posts.push(post);
-    await post.save();
-    await profile.save();
-    res.status(201).send(profile);
-    //write ref of post for each connection's maintimeline
-  } catch (error) {
-    console.error('router.post /posts/upload - server error: ' + error);
-    res.status(500).send('server error');
-  }
+  //   //   res.status(201).send(profile);
+  res.status(201).send('upload post');
+  // } catch (error) {
+  //   console.error('router.post /posts/upload - server error: ' + error);
+  //   res.status(500).send('server error');
+  // }
 });
 
 const uploadComment = multer({
