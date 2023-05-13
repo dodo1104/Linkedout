@@ -145,6 +145,12 @@ const HomePage = (props) => {
     }
   }, [loadState]);
 
+  useEffect(() => {
+    if (!posts || !props.posts) return;
+    console.log('posts.length: ', posts);
+    console.log('props.posts.length: ', props.posts);
+  }, [posts, props.posts]);
+
   const toggleModal = (isOpen) => {
     setIsModalOpen(isOpen);
   };

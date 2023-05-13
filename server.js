@@ -24,6 +24,14 @@ app.use('/users', require('./routes/api/users'));
 app.use('/profile', require('./routes/api/profiles'));
 app.use('/posts', require('./routes/api/posts'));
 
+///////////////////////////////////////////////////NOTE///////////////////////////////////////////////////////
+//                                                                                                          //
+//                                                                                                          //
+//  mongoDB can't work with large files (it took 7 secs to fetch 550Mb, so use only images and not videos)  //
+//                                                                                                          //
+//                                                                                                          //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 const PORT = process.env.PORT || 5000;
 
 io.on('connection', (socket) => {

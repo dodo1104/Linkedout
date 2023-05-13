@@ -14,7 +14,7 @@ const Comment = require('../../models/Comment');
 
 const uploadPost = multer({
   //dest: 'images', //save in a folder instead of passing it to the next middleware
-  limits: 50000000 //50,000,000 = 50MB
+  // limits: 50000000 //50,000,000 = 50MB
   // fileFilter(req, file, cb) {
   //   if (file.originalname.match(/\.(png|jpg)$/)) {
   //     cb(undefined, true);
@@ -28,13 +28,15 @@ const uploadPost = multer({
 //upload new post
 //private
 router.post('/upload', auth, uploadPost.single('file'), async (req, res) => {
+  //NOTE: mongoDB can't work with large files (it took 7 secs to fetch 550Mb, so use only images and not videos)
+
   const { text = '' } = req.body;
   // const { file } = req;
 
   picked = req.file
     ? (({ buffer, mimetype, size }) => ({ buffer, mimetype, size }))(req.file)
     : null;
-
+  console.log('picked: ', picked);
   try {
     const profile = await Profile.findOne({ id: req.user.id }).select(
       '_id posts'
@@ -43,17 +45,19 @@ router.post('/upload', auth, uploadPost.single('file'), async (req, res) => {
     const post = new Post({
       profile: profile._id,
       text,
-      file: picked
-        ? { ...picked, buffer: picked.buffer.toString('base64') }
-        : null
+      file: picked ? { ...picked } : null
     });
 
     profile.posts.push(post);
     await post.save();
     await profile.save();
 
+    const storedPost = await Post.find({ profile: profile._id })
+      .limit(1)
+      .sort({ $natural: -1 });
+
     //   res.status(201).send(profile);
-    res.status(201).send('upload post');
+    res.status(201).send(storedPost[0]);
   } catch (error) {
     console.error('router.post /posts/upload - server error: ' + error);
     res.status(500).send('server error');

@@ -3,7 +3,8 @@ import {
   SET_POSTS,
   SET_COMMENTS,
   UPDATE_POSTS_IS_LOADED,
-  UPDATE_COMMENTS_IS_LOADED
+  UPDATE_COMMENTS_IS_LOADED,
+  ADD_NEW_POST_WITH_INDEX
 } from './type.js';
 
 export const fetchPosts = (token, index) => async (dispatch) => {
@@ -21,7 +22,7 @@ export const fetchPosts = (token, index) => async (dispatch) => {
   //   .get('/posts', body, config)
   dispatch(updatePostsIsLoaded('LOADING'));
   axios({
-    method: 'get',
+    method: 'get', //GET request can't send data such as FormData but only params
     url: '/posts',
     headers: { 'Content-Type': 'application/json' },
     params: {
@@ -179,29 +180,39 @@ export const fetchComments = (postId, index) => async (dispatch) => {
 export const createNewPost =
   (post = {}) =>
   async (dispatch) => {
-    const data = new FormData();
-    data.append('file', post.file);
-    data.append('text', post.text);
+    // const data = new FormData();
+    // data.append('file', post.file);
+    // data.append('text', post.text);
 
-    const body = JSON.stringify({
-      text: post.text,
-      file: post.file
-    });
-    console.log('createNewPost action');
-    axios({
-      method: 'post',
-      url: '/posts/upload',
-      headers: { 'Content-Type': 'application/json' },
-      data
-    })
-      .then((res) => {
-        const { data } = res;
-        console.log('data:', data);
-      })
-      .catch((error) => {
-        console.log(error);
-        updateCommentsIsLoaded('FAILED');
-      });
+    // const body = JSON.stringify({
+    //   text: post.text,
+    //   file: post.file
+    // });
+    // console.log('createNewPost action');
+    // axios({
+    //   method: 'post',
+    //   url: '/posts/upload',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   data
+    // })
+    //   .then((res) => {
+    //     const { data } = res;
+    //     console.log('DATA: ', data);
+    //     localStorage.setItem(
+    //       'linkedout-add-new-post-example',
+    //       JSON.stringify(data)
+    //     );
+    //     dispatch(addNewPostWithIndesx(data));
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    const newPost = JSON.parse(
+      localStorage.getItem('linkedout-add-new-post-example')
+    );
+    console.log('linkedout-add-new-post-example: ', newPost);
+    dispatch(addNewPostWithIndex(newPost));
   };
 
 export const updatePostsIsLoaded = (isLoaded) => {
@@ -218,6 +229,15 @@ export const updateCommentsIsLoaded = (isLoaded) => {
     type: UPDATE_COMMENTS_IS_LOADED,
     payload: {
       isLoaded
+    }
+  };
+};
+const addNewPostWithIndex = (post, index = 0) => {
+  return {
+    type: ADD_NEW_POST_WITH_INDEX,
+    payload: {
+      post,
+      index
     }
   };
 };

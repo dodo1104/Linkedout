@@ -2,7 +2,8 @@ import {
   SET_POSTS,
   SET_COMMENTS,
   UPDATE_POSTS_IS_LOADED,
-  UPDATE_COMMENTS_IS_LOADED
+  UPDATE_COMMENTS_IS_LOADED,
+  ADD_NEW_POST_WITH_INDEX
 } from '../actions/type';
 
 const INITIAL_STATE = {
@@ -55,6 +56,20 @@ export default function posts(state = INITIAL_STATE, action) {
     return {
       ...state,
       isCommentsLoaded: action.payload.isLoaded
+    };
+  }
+  if (action.type === ADD_NEW_POST_WITH_INDEX) {
+    const { payload } = action;
+    let updatedPosts = [...state.posts];
+
+    console.log('updatedPosts: ', updatedPosts);
+    console.log(payload);
+    updatedPosts.splice(payload.index, 0, payload.post);
+    console.log('ADD_NEW_POST_WITH_INDEX: ', updatedPosts);
+
+    return {
+      ...state,
+      posts: [...updatedPosts]
     };
   } else {
     return state;
