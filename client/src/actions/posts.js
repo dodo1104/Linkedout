@@ -208,9 +208,10 @@ export const createNewPost =
     //     console.log(error);
     //   });
 
-    const newPost = JSON.parse(
+    let newPost = JSON.parse(
       localStorage.getItem('linkedout-add-new-post-example')
     );
+    newPost = { ...newPost, _id: 10, text: 'how you doin' };
     console.log('linkedout-add-new-post-example: ', newPost);
     dispatch(addNewPostWithIndex(newPost));
   };

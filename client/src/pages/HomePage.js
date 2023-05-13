@@ -146,10 +146,14 @@ const HomePage = (props) => {
   }, [loadState]);
 
   useEffect(() => {
-    if (!posts || !props.posts) return;
-    console.log('posts.length: ', posts);
-    console.log('props.posts.length: ', props.posts);
-  }, [posts, props.posts]);
+    if (!posts || !postsSlice) return;
+    if (posts[0] != postsSlice[0]) {
+      setPostsSlice([posts[0], ...postsSlice]);
+      setPostsSliceIndex(postsSliceIndex + 1);
+      // console.log('POSTS: ', posts);
+      // console.log('POSTSSLICE: ', [posts[0], ...postsSlice]);
+    }
+  }, [posts, postsSlice]);
 
   const toggleModal = (isOpen) => {
     setIsModalOpen(isOpen);

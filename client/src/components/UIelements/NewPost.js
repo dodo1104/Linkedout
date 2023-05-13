@@ -92,13 +92,14 @@ const NewPost = ({ avatar, name, toggleModal, ...props }) => {
           className={`btn-3 new-post__button ${
             !isSpanValue ? 'new-post__button--invalid' : ''
           }`}
-          onClick={() =>
+          onClick={() => {
             file &&
-            props.createNewPost({
-              text,
-              file
-            })
-          }
+              props.createNewPost({
+                text,
+                file
+              });
+            toggleModal(false);
+          }}
         >
           POST
         </CustomButtonAncher>
