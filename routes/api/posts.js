@@ -54,9 +54,11 @@ router.post('/upload', auth, uploadPost.single('file'), async (req, res) => {
 
     const storedPost = await Post.find({ profile: profile._id })
       .limit(1)
-      .sort({ $natural: -1 });
+      .sort({ $natural: -1 })
+      .populate('profile', ['avatar', 'name', 'desc']);
 
     //   res.status(201).send(profile);
+    console.log(storedPost);
     res.status(201).send(storedPost[0]);
   } catch (error) {
     console.error('router.post /posts/upload - server error: ' + error);

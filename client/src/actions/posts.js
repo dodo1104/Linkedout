@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { convertToBase64 } from '../utils/sharedResources.js';
 import {
   SET_POSTS,
   SET_COMMENTS,
@@ -177,44 +178,6 @@ export const fetchComments = (postId, index) => async (dispatch) => {
   //   });
   // }, 1000);
 };
-export const createNewPost =
-  (post = {}) =>
-  async (dispatch) => {
-    // const data = new FormData();
-    // data.append('file', post.file);
-    // data.append('text', post.text);
-
-    // const body = JSON.stringify({
-    //   text: post.text,
-    //   file: post.file
-    // });
-    // console.log('createNewPost action');
-    // axios({
-    //   method: 'post',
-    //   url: '/posts/upload',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   data
-    // })
-    //   .then((res) => {
-    //     const { data } = res;
-    //     console.log('DATA: ', data);
-    //     localStorage.setItem(
-    //       'linkedout-add-new-post-example',
-    //       JSON.stringify(data)
-    //     );
-    //     dispatch(addNewPostWithIndesx(data));
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-
-    let newPost = JSON.parse(
-      localStorage.getItem('linkedout-add-new-post-example')
-    );
-    newPost = { ...newPost, _id: 10, text: 'how you doin' };
-    console.log('linkedout-add-new-post-example: ', newPost);
-    dispatch(addNewPostWithIndex(newPost));
-  };
 
 export const updatePostsIsLoaded = (isLoaded) => {
   return {
@@ -233,6 +196,48 @@ export const updateCommentsIsLoaded = (isLoaded) => {
     }
   };
 };
+
+export const createNewPost =
+  (post = {}) =>
+  async (dispatch) => {
+    // const data = new FormData();
+    // data.append('file', post.file);
+    // data.append('text', post.text);
+    // const body = JSON.stringify({
+    //   text: post.text,
+    //   file: post.file
+    // });
+    // console.log('createNewPost action');
+    // axios({
+    //   method: 'post',
+    //   url: '/posts/upload',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   data
+    // })
+    //   .then((res) => {
+    //     const { data } = res;
+    //     console.log('DATA: ', data);
+    //     localStorage.setItem(
+    //       'linkedout-add-new-post-example',
+    //       JSON.stringify(data)
+    //     );
+    //     dispatch(addNewPostWithIndex(data));
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    let newPost = JSON.parse(
+      localStorage.getItem('linkedout-add-new-post-example')
+    );
+    newPost = { ...newPost, id: 10 };
+    console.log('linkedout-add-new-post-example: ', newPost);
+
+    // newPost.file.buffer.data = convertToBase64(newPost.file.buffer.data);
+
+    dispatch(addNewPostWithIndex(newPost));
+  };
+
 const addNewPostWithIndex = (post, index = 0) => {
   return {
     type: ADD_NEW_POST_WITH_INDEX,

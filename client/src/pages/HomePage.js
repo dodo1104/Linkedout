@@ -150,8 +150,6 @@ const HomePage = (props) => {
     if (posts[0] != postsSlice[0]) {
       setPostsSlice([posts[0], ...postsSlice]);
       setPostsSliceIndex(postsSliceIndex + 1);
-      // console.log('POSTS: ', posts);
-      // console.log('POSTSSLICE: ', [posts[0], ...postsSlice]);
     }
   }, [posts, postsSlice]);
 

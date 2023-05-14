@@ -20,26 +20,8 @@ export const isInputValid = (value, id) => {
   }
 };
 
-export const convertToBase64 = (profiles) => {
-  //recieves JSON or array of JSON. returns JSON or array of JSON
-  let arr = [];
-
-  if (!profiles.length) {
-    arr.push(profiles); //profiles is only one profile (JSON)
-  } else {
-    //profiles is an array of profiles (array of JSON)
-    arr = [...profiles];
-  }
-  arr.forEach((profile) => {
-    profile.avatar.buffer.data = String.fromCharCode.apply(
-      //convert the data buffer to base64 for the img
-      null,
-      new Uint8Array(profile.avatar.buffer.data)
-    );
-  });
-  console.log('arr:\n', arr);
-  if (!profiles.length) return arr[0];
-  return [...arr];
+export const convertToBase64 = (data) => {
+  return window.btoa(String.fromCharCode(...data));
 };
 
 export const debounce = (input, delay = 500, func) => {

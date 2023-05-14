@@ -8,6 +8,7 @@ import { fetchComments } from '../../actions/posts';
 import './Post.css';
 
 import Comment from './Comment.js';
+import { convertToBase64 } from '../../utils/sharedResources';
 
 function Post({ data, ...props }) {
   const [showComments, setShowComments] = useState(false);
@@ -19,7 +20,10 @@ function Post({ data, ...props }) {
 
   // console.log('file:\n', file.buffer.data);
   const formatDate = moment(date).format('YYYY-MM-DD HH:MM');
-  console.log('comments:\n', comments);
+  // console.log('comments:\n', comments);
+  // console.log('Post file: ', file); //{file: {buffer: {type, data}, mimetype, size}}
+  // console.log('Post file: ', convertToBase64(file.buffer.data));
+  // console.log('Post file: ', convertToBase64(file.buffer.data));
 
   useEffect(() => {
     if (commentsLoadingPhase === 'SUCCEEDED') {
@@ -100,10 +104,6 @@ function Post({ data, ...props }) {
     </div>
   );
 }
-
-const convertToBase64 = (buffer) => {
-  return String.fromCharCode.apply(null, new Uint8Array(buffer));
-};
 
 const mapStateToProps = ({ posts }) => {
   // alert(

@@ -98,9 +98,13 @@ export const fetchOwnProfile = (token) => async (dispatch) => {
 
   const profileExample = localStorage.getItem('my-linkedin-profile-example');
   let parsedProfile = JSON.parse(profileExample);
+  console.log('parsedProfile 1:\n', parsedProfile);
+  parsedProfile.avatar.buffer.data = convertToBase64(
+    parsedProfile.avatar.buffer.data
+  );
   // console.log(JSON.stringify(parsedProfile.avatar.mimetype));
-  // console.log('parsedProfile:\n', parsedProfile);
-  parsedProfile = convertToBase64(parsedProfile);
+  console.log('parsedProfile 2:\n', parsedProfile);
+
   setTimeout(() => {
     dispatch({
       type: SET_USER_PROFILE,
