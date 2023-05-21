@@ -118,8 +118,9 @@ router.post(
   uploadComment.single('file'),
   async (req, res) => {
     const { text = '' } = req.body;
+    const { post_id } = req.params;
 
-    console.log(req.file);
+    // console.log(req.file);
     picked = req.file
       ? (({ buffer, mimetype, size }) => ({ buffer, mimetype, size }))(req.file)
       : null;
@@ -128,7 +129,6 @@ router.post(
       const profile = await Profile.findOne({ id: req.user.id }).select(
         '_id comments'
       );
-      console.log('profile is: ' + profile._id);
 
       const comment = new Comment({
         profile: profile._id,
@@ -138,21 +138,30 @@ router.post(
           : null
       });
 
-      profile.comments.push(comment);
-
       await comment.save();
+
+      const lastComment = await Comment.findOne({ profile: profile._id })
+        .limit(1)
+        .sort({ $natural: -1 })
+        .populate('profile', ['avatar', 'name', 'desc']);
+      const { _id: comment_id } = lastComment;
+
+      profile.comments.push(comment_id);
       await profile.save();
-      const fetchedPost = await Post.findOne({ _id: req.params.post_id });
-      console.log(fetchedPost.comments);
-      fetchedPost.comments.push(comment);
-      await fetchedPost.save();
-      res.status(201).send(fetchedPost.comments);
+
+      let commentedPost = await Post.findOne({ _id: post_id });
+      commentedPost.comments.push(comment_id);
+      await commentedPost.save();
+
+      res.status(201).send(lastComment);
     } catch (error) {
       console.error(
         'router.post /posts/:post_id/comment - server error: ' + error
       );
       res.status(500).send('server error');
     }
+
+    // res.status(201).send('lastComment');
   }
 );
 

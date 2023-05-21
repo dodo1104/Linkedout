@@ -4,9 +4,10 @@ import { CgProfile } from 'react-icons/cg';
 import moment from 'moment';
 
 import './Comment.css';
+import { convertToBase64 } from '../../utils/sharedResources';
 
 const Comment = ({ comment }) => {
-  const { date, profile, text } = comment;
+  const { date = null, profile, text = null } = comment;
   const { data: bufferData = null } = profile.avatar.buffer;
 
   const formatDate = moment(date).format('YYYY-MM-DD HH:MM');
@@ -18,7 +19,7 @@ const Comment = ({ comment }) => {
         {
           // bufferData != null ? (
           //   <img
-          //     src={`data:${profile.avatar.mimetype};base64,${convertToBase64(
+          //     src={`data:${profile.avatar.mimetype};base64,${convertToBase644(
           //       bufferData
           //     )}`}
           //   />
@@ -35,14 +36,10 @@ const Comment = ({ comment }) => {
         {/* <p className="comment__info__date fs-300 color-gray-medium">
           {formatDate}
         </p> */}
-        <p className="comment__info__text fs-400">{text}</p>
+        {text && <p className="comment__info__text fs-400">{text}</p>}
       </div>
     </div>
   );
-};
-
-const convertToBase64 = (buffer) => {
-  return String.fromCharCode.apply(null, new Uint8Array(buffer));
 };
 
 export default Comment;

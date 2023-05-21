@@ -8,15 +8,20 @@ import { fetchComments } from '../../actions/posts';
 import './Post.css';
 
 import Comment from './Comment.js';
+import NewComment from './NewComment.js';
 import { convertToBase64 } from '../../utils/sharedResources';
 
 function Post({ data, ...props }) {
+  const REVERSE_ORDER = -1;
+
   const [showComments, setShowComments] = useState(false);
   const [commentsBlockIndex, setCommentsBlockIndex] = useState(0);
 
   const { date, file, profile, text, _id } = data;
   const { data: bufferData = null } = profile.avatar.buffer;
   const { comments = [], commentsLoadingPhase = 'INIT' } = props;
+
+  // console.log('COMMENTS: ', comments);
 
   // console.log('file:\n', file.buffer.data);
   const formatDate = moment(date).format('YYYY-MM-DD HH:MM');
@@ -73,9 +78,12 @@ function Post({ data, ...props }) {
         </div>
         {/* the comments will be lazy loading and have a 'Load More' button and will show and load like the posts (with index and array and etc...) */}
         <div className="post__comments">
+          <div className="post__comments__new-comment">
+            <NewComment profile={profile} profileId={_id} />
+          </div>
           <button
             className={comments.length && 'disable-pointer-events'}
-            onClick={() => props.fetchComments(_id, -1)}
+            onClick={() => props.fetchComments(_id, REVERSE_ORDER)}
             style={{
               cursor: 'pointer'
             }}
