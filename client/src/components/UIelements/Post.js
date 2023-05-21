@@ -17,7 +17,7 @@ function Post({ data, ...props }) {
   const [showComments, setShowComments] = useState(false);
   const [commentsBlockIndex, setCommentsBlockIndex] = useState(0);
 
-  const { date, file, profile, text, _id } = data;
+  const { date, file, profile, text, _id: post_id } = data;
   const { data: bufferData = null } = profile.avatar.buffer;
   const { comments = [], commentsLoadingPhase = 'INIT' } = props;
 
@@ -37,7 +37,7 @@ function Post({ data, ...props }) {
   }, [commentsLoadingPhase]);
 
   return (
-    <div className="post" key={_id}>
+    <div className="post" key={post_id}>
       <div className="info-box">
         <div className="post__header">
           {/* avatar, name, desc, date of post */}
@@ -79,11 +79,11 @@ function Post({ data, ...props }) {
         {/* the comments will be lazy loading and have a 'Load More' button and will show and load like the posts (with index and array and etc...) */}
         <div className="post__comments">
           <div className="post__comments__new-comment">
-            <NewComment profile={profile} profileId={_id} />
+            <NewComment profile={profile} postId={post_id} />
           </div>
           <button
             className={comments.length && 'disable-pointer-events'}
-            onClick={() => props.fetchComments(_id, REVERSE_ORDER)}
+            onClick={() => props.fetchComments(post_id, REVERSE_ORDER)}
             style={{
               cursor: 'pointer'
             }}
@@ -97,7 +97,9 @@ function Post({ data, ...props }) {
               })}
               {commentsLoadingPhase != 'DONE' && (
                 <button
-                  onClick={() => props.fetchComments(_id, commentsBlockIndex)}
+                  onClick={() =>
+                    props.fetchComments(post_id, commentsBlockIndex)
+                  }
                   style={{ cursor: 'pointer' }}
                 >
                   Load More...

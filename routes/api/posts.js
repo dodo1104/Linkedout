@@ -117,51 +117,56 @@ router.post(
   auth,
   uploadComment.single('file'),
   async (req, res) => {
-    const { text = '' } = req.body;
-    const { post_id } = req.params;
+    const { text = '', post_id } = req.body;
+
+    // console.log('req.data: ', req.body.text);
 
     // console.log(req.file);
-    picked = req.file
-      ? (({ buffer, mimetype, size }) => ({ buffer, mimetype, size }))(req.file)
-      : null;
+    // picked = req.file
+    //   ? (({ buffer, mimetype, size }) => ({ buffer, mimetype, size }))(req.file)
+    //   : null;
 
-    try {
-      const profile = await Profile.findOne({ id: req.user.id }).select(
-        '_id comments'
-      );
+    // try {
+    //   const profile = await Profile.findOne({ id: req.user.id }).select(
+    //     '_id comments'
+    //   );
 
-      const comment = new Comment({
-        profile: profile._id,
-        text,
-        file: picked
-          ? { ...picked, buffer: picked.buffer.toString('base64') }
-          : null
-      });
+    //   const comment = new Comment({
+    //     profile: profile._id,
+    //     text,
+    //     file: picked
+    //       ? { ...picked, buffer: picked.buffer.toString('base64') }
+    //       : null
+    //   });
 
-      await comment.save();
+    //   await comment.save();
 
-      const lastComment = await Comment.findOne({ profile: profile._id })
-        .limit(1)
-        .sort({ $natural: -1 })
-        .populate('profile', ['avatar', 'name', 'desc']);
-      const { _id: comment_id } = lastComment;
+    //   const lastComment = await Comment.findOne({ profile: profile._id })
+    //     .limit(1)
+    //     .sort({ $natural: -1 })
+    //     .populate('profile', ['avatar', 'name', 'desc']);
+    //   const { _id: comment_id } = lastComment;
 
-      profile.comments.push(comment_id);
-      await profile.save();
+    //   profile.comments.push(comment_id);
+    //   await profile.save();
 
-      let commentedPost = await Post.findOne({ _id: post_id });
-      commentedPost.comments.push(comment_id);
-      await commentedPost.save();
+    //   let commentedPost = await Post.findOne({ _id: post_id });
+    //   commentedPost.comments.push(comment_id);
+    //   await commentedPost.save();
 
-      res.status(201).send(lastComment);
-    } catch (error) {
-      console.error(
-        'router.post /posts/:post_id/comment - server error: ' + error
-      );
-      res.status(500).send('server error');
-    }
+    //   res.status(201).send(lastComment);
+    // } catch (error) {
+    //   console.error(
+    //     'router.post /posts/:post_id/comment - server error: ' + error
+    //   );
+    //   res.status(500).send('server error');
+    // }
 
-    // res.status(201).send('lastComment');
+    // const comment = await Comment.findOne({ _id: '6469f805176a01764e1a1ded' }) //for testing
+    //   .limit(1)
+    //   .sort({ $natural: -1 })
+    //   .populate('profile', ['avatar', 'name', 'desc']);
+    res.status(201).send('add new comment api');
   }
 );
 

@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import { AiFillCloseCircle } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import { connect } from 'react-redux';
+
+import { createNewComment } from '../../actions/posts';
+
 import Comment from './Comment';
 import CustomButtonAncher from './CustomButtonAncher';
 
 import './NewComment.css';
 
-const NewComment = ({ profile, _id, ...props }) => {
+const NewComment = ({ profile, postId, ...props }) => {
   const [text, setText] = useState('');
   const [isSpanValue, setIsSpanValue] = useState(false);
   const [isSpanFocused, setIsSpanFocused] = useState(true);
@@ -42,13 +45,12 @@ const NewComment = ({ profile, _id, ...props }) => {
       <div className="">
         <CustomButtonAncher
           className={`btn-3 ${!isSpanValue ? 'new-post__button--invalid' : ''}`}
-          // onClick={() => {
-          //   file &&
-          //     props.createNewPost({
-          //       text,
-          //       file
-          //     });
-          // }}
+          onClick={() =>
+            props.createNewComment({
+              text,
+              postId
+            })
+          }
         >
           COMMENT
         </CustomButtonAncher>
@@ -57,4 +59,6 @@ const NewComment = ({ profile, _id, ...props }) => {
   );
 };
 
-export default connect(null, {})(NewComment);
+export default connect(null, {
+  createNewComment
+})(NewComment);

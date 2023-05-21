@@ -3,7 +3,8 @@ import {
   SET_COMMENTS,
   UPDATE_POSTS_IS_LOADED,
   UPDATE_COMMENTS_IS_LOADED,
-  ADD_NEW_POST_WITH_INDEX
+  ADD_NEW_POST_WITH_INDEX,
+  ADD_NEW_COMMENT
 } from '../actions/type';
 
 const INITIAL_STATE = {
@@ -39,10 +40,17 @@ export default function posts(state = INITIAL_STATE, action) {
     };
   }
   if (action.type === SET_COMMENTS) {
+    console.log('SET_COMMENTS:');
     const { comments, postId } = action.payload;
+    const stateComments = state.comments[postId]
+      ? [...state.comments[postId]]
+      : [];
+    console.log(stateComments);
+    console.log(state.comments);
+    console.log(postId);
     return {
       ...state,
-      comments: { [postId]: [...comments] },
+      comments: { ...comments, [postId]: [...stateComments, ...comments] },
       lastEdittedCommentsPostId: postId
     };
   }
@@ -71,7 +79,18 @@ export default function posts(state = INITIAL_STATE, action) {
       ...state,
       posts: [...updatedPosts]
     };
-  } else {
+  }
+  // if (action.type === ADD_NEW_COMMENT) {
+  //   const { comment, postId = 0 } = action.payload;
+  //   // const comments = { [postId]: [...state.comments[postId], comment] };
+  //   console.log('ADD_NEW_COMMENT comments: ', state.comments[postId]);
+  //   return {
+  //     ...state
+  //     // comments: { [postId]: [...state.comments[postId], comment] },
+  //     // lastEdittedCommentsPostId: postId
+  //   };
+  // }
+  else {
     return state;
   }
 }

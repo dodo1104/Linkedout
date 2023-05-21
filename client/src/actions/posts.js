@@ -5,8 +5,8 @@ import {
   SET_COMMENTS,
   UPDATE_POSTS_IS_LOADED,
   UPDATE_COMMENTS_IS_LOADED,
-  ADD_NEW_POST_WITH_INDEX,
-  ADD_NEW_COMMENT
+  ADD_NEW_POST_WITH_INDEX
+  // ADD_NEW_COMMENT
 } from './type.js';
 
 export const fetchPosts = (token, index) => async (dispatch) => {
@@ -238,39 +238,49 @@ export const createNewPost =
 
     dispatch(addNewPostWithIndex(newPost));
   };
-export const createNewComment = (comment, post_id) => async (dispatch) => {
-  const data = new FormData();
-  data.append('text', comment.text);
+export const createNewComment =
+  (comment, post_id = 0) =>
+  async (dispatch) => {
+    const data = new FormData();
+    data.append('text', comment.text);
+    data.append('post_id', post_id);
 
-  axios({
-    method: 'post',
-    url: '/posts/:post_id/comment',
-    headers: { 'Content-Type': 'application/json' },
-    data
-  })
-    .then((res) => {
-      const { data } = res;
-      console.log('DATA: ', data);
-      localStorage.setItem(
-        'linkedout-add-new-comment-example',
-        JSON.stringify(data)
-      );
-      dispatch(addNewPostWithIndex(data));
+    axios({
+      method: 'post',
+      url: '/posts/:post_id/comment',
+      headers: { 'Content-Type': 'application/json' },
+      data
     })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((res) => {
+        const { data } = res;
+        console.log('DATA: ', data);
+        // localStorage.setItem(
+        //   'linkedout-add-new-comment-example',
+        //   JSON.stringify(data)
+        // );
+        let lastComment = localStorage.getItem(
+          'linkedout-add-new-comment-example'
+        );
+        lastComment = JSON.parse(lastComment);
+        console.log('lastComment: ', lastComment);
+        dispatch({
+          type: SET_COMMENTS,
+          payload: {
+            comments: [lastComment],
+            postId: post_id
+          }
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-  // let newPost = JSON.parse(
-  //   localStorage.getItem('linkedout-add-new-post-example')
-  // );
-  // newPost = { ...newPost, id: 10 };
-  // console.log('linkedout-add-new-post-example: ', newPost);
+    // let newPost = JSON.parse(
+    //   localStorage.getItem('linkedout-add-new-post-example')
+    // );
 
-  // newPost.file.buffer.data = convertToBase64(newPost.file.buffer.data);
-
-  dispatch(addNewComment(comment, post_id));
-};
+    // newPost.file.buffer.data = convertToBase64(newPost.file.buffer.data);
+  };
 
 const addNewPostWithIndex = (post, index = 0) => {
   return {
@@ -282,12 +292,12 @@ const addNewPostWithIndex = (post, index = 0) => {
   };
 };
 
-const addNewComment = (comment, post_id) => {
-  return {
-    type: ADD_NEW_COMMENT,
-    payload: {
-      comment,
-      post_id
-    }
-  };
-};
+// const addNewComment = (comment, post_id) => {
+//   return {
+//     type: ADD_NEW_COMMENT,
+//     payload: {
+//       comment,
+//       post_id
+//     }
+//   };
+// };
