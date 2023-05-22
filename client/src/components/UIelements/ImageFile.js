@@ -1,5 +1,8 @@
 import React from 'react';
 import Player from './Player';
+import { AiFillCloseCircle } from 'react-icons/ai';
+
+import './ImageFile.css';
 
 export default class ImageFile extends React.Component {
   constructor(props) {
@@ -51,7 +54,7 @@ export default class ImageFile extends React.Component {
     const { file, label } = this.state;
 
     return (
-      <div>
+      <div style={{ position: 'relative' }}>
         {/* <label htmlFor={this.state.id} className="button">
           Upload an image
         </label> */}
@@ -82,13 +85,23 @@ export default class ImageFile extends React.Component {
           accept=".mp3,.mp4"
         />
 
-        {file && <h3>{file.name}</h3>}
-        {file && label === 'Video' ? (
-          <div key={file.name}>
-            <Player file={file} />
+        {file && (
+          <div className="flex">
+            <AiFillCloseCircle
+              className="image-file__file__close-btn"
+              onClick={() => {
+                this.setState({ file: null });
+                this.props.updateFile(null);
+              }}
+            />
+            <h3>{file.name}</h3>
           </div>
-        ) : (
-          label === 'Image' && imgTag
+        )}
+
+        {file && (
+          <div key={file.name}>
+            {label === 'Video' ? <Player file={file} /> : imgTag}
+          </div>
         )}
       </div>
     );
