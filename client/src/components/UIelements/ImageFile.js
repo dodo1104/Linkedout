@@ -68,6 +68,7 @@ export default class ImageFile extends React.Component {
             this.handleChange(e);
             this.setState({ label: 'Image' });
           }}
+          onClick={(e) => (e.target.value = null)}
           className="dis-hidden"
           accept=".jpeg, .jpg, .png"
         />
@@ -81,27 +82,27 @@ export default class ImageFile extends React.Component {
             this.handleChange(e);
             this.setState({ label: 'Video' });
           }}
+          onClick={(e) => (e.target.value = null)}
           className="dis-hidden"
           accept=".mp3,.mp4"
         />
 
         {file && (
-          <div className="flex">
-            <AiFillCloseCircle
-              className="image-file__file__close-btn"
-              onClick={() => {
-                this.setState({ file: null });
-                this.props.updateFile(null);
-              }}
-            />
-            <h3>{file.name}</h3>
-          </div>
-        )}
-
-        {file && (
-          <div key={file.name}>
-            {label === 'Video' ? <Player file={file} /> : imgTag}
-          </div>
+          <>
+            <div className="flex">
+              <AiFillCloseCircle
+                className="image-file__file__close-btn"
+                onClick={() => {
+                  this.setState({ file: null, imageURI: null });
+                  this.props.updateFile(null);
+                }}
+              />
+              <h3>{file.name}</h3>
+            </div>
+            <div key={file.name}>
+              {label === 'Video' ? <Player file={file} /> : imgTag}
+            </div>
+          </>
         )}
       </div>
     );
