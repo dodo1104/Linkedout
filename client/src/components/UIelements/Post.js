@@ -10,6 +10,7 @@ import './Post.css';
 import Comment from './Comment.js';
 import NewComment from './NewComment.js';
 import { convertToBase64 } from '../../utils/sharedResources';
+import withLoading from '../../hoc/withLoading';
 
 function Post({ data, ...props }) {
   const REVERSE_ORDER = -1;
@@ -126,6 +127,8 @@ const mapStateToProps = ({ posts }) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  fetchComments
-})(Post);
+export default withLoading(
+  connect(mapStateToProps, {
+    fetchComments
+  })(Post)
+);
