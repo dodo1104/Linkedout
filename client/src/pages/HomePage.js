@@ -231,6 +231,7 @@ const HomePage = (props) => {
                   postsSlice.map((post) => {
                     return (
                       <div className="m-t-m-1">
+                        {/* <h3>{post._id}</h3> */}
                         <Post data={post} key={post._id} />
                         {/* {postsSliceIndex}
                         {postsSlice.length}

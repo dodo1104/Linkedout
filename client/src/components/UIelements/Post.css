@@ -2,6 +2,10 @@
   border: 1px solid black;
 } */
 
+.home-page .post {
+  animation: appear 0.8s linear;
+}
+
 .post > .info-box {
   padding: 0.7em;
 }
@@ -46,5 +50,4 @@
 }
 
 .post__comments {
-  
 }
