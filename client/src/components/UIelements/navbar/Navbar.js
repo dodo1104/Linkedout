@@ -119,7 +119,7 @@ const Navbar = (props) => {
                       <a
                         onClick={() => {
                           setIndex(item.id);
-                          navigate('/home');
+                          navigate(`${item.navTo}`);
                         }}
                       >
                         <p className="l-h-200">{item.icon}</p>

@@ -75,6 +75,14 @@
   height: min-content;
 }
 
-.test-1 {
-  display: none;
+.home-page__posts__loading-text {
+  font-size: 3rem;
+  margin-top: -3rem;
+}
+
+#create-post-list > li label {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: fit-content;
 }

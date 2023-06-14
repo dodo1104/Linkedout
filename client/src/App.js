@@ -13,6 +13,7 @@ import RegPage from './pages/RegPage';
 import LogPage from './pages/LogPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 import NotFoundPage from './pages/NotFoundPage';
 import './transitions.css'; /*needs to be imported last because of the cascading stage*/
 
@@ -60,7 +61,7 @@ const App = () => {
         <Route exact path="/test" element={<RegPage />} />
         <Route exact path="/register" element={<RegisterPage />} />
         <Route exact path="/home" element={<HomePage />} />
-        <Route exact path="/profile/:profileId" element={<TESTING />} />
+        <Route exact path="/profile/:profileId" element={<ProfilePage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>

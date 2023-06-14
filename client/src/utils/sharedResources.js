@@ -35,19 +35,19 @@ export const debounce = (input, delay = 500, func) => {
 };
 
 export const navbarItems = [
-  { id: 1, label: 'Home', icon: <FaHome />, linkTo: '/home' },
+  { id: 1, label: 'Home', icon: <FaHome />, navTo: '/home' },
   {
     id: 2,
-    label: 'My Network',
+    label: 'My Profile',
     icon: <BsFillPeopleFill />,
-    linkTo: '/home'
+    navTo: '/profile/my-profile'
   },
-  { id: 3, label: 'Messaging', icon: <TiMessages />, linkTo: '/home' },
+  { id: 3, label: 'Messaging', icon: <TiMessages />, navTo: '/home' },
   {
     id: 4,
     label: 'Notifications',
     icon: <IoMdNotifications />,
-    linkTo: '/home'
+    navTo: '/home'
   }
 ];
 

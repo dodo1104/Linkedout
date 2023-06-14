@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { Oval } from 'react-loader-spinner';
 
 import setReqAuthToken from '../utils/setReqAuthToken';
 import { createPostItems } from '../utils/sharedResources';
@@ -16,6 +17,7 @@ import LoadingLogo from '../components/UIelements/LoadingLogo';
 import Modal from '../components/UIelements/Modal';
 import Post from '../components/UIelements/Post';
 import NewPost from '../components/UIelements/NewPost';
+import ProfileSummaryWithBG from '../components/UIelements/ProfileSummaryWithBG';
 
 const HomePage = (props) => {
   const { profile, posts, postsLoadingPhase } = props;
@@ -34,8 +36,12 @@ const HomePage = (props) => {
   const logoRef = useRef();
   const navigate = useNavigate();
 
+  //uncomment for logout and clear auth token from local storage if its expired (every 10 hours)//
   // token = null;
   // localStorage.removeItem('my-linkedin-token');
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // console.log('PROFILE: ', profile);
 
   useEffect(() => {
     if (token) {
@@ -167,12 +173,12 @@ const HomePage = (props) => {
         <div className="container tran-navbar-offset">
           <div className="home-page grid">
             <div className="home-page__user-info info-box">
-              <span>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Voluptatum reprehenderit vero possimus omnis laudantium
-                corporis, temporibus quis ea voluptate esse tenetur molestias at
-                distinctio perferendis aut harum aperiam repellendus earum?
-              </span>
+              <ProfileSummaryWithBG
+                avatar={profile.avatar}
+                name={profile.name}
+                desc={profile.desc}
+                key={profile._id}
+              />
             </div>
             <div>
               <div className="home-page__create-post info-box">
@@ -214,9 +220,13 @@ const HomePage = (props) => {
                     {createPostItems.map((item) => {
                       return (
                         <li key={item.id} className="home-page__li">
-                          <CustomButtonAncher className="btn-4--gray fw-600 m-nl-s-4 fs-400">
-                            {item.icon}
-                            <span>{item.label}</span>
+                          <CustomButtonAncher
+                            className="btn-4--gray fw-600 m-nl-s-4 fs-400"
+                            onClick={() => toggleModal(true)}
+                          >
+                            <label htmlFor={`input${item.label}`}>
+                              {item.icon}&nbsp;{item.label}
+                            </label>
                           </CustomButtonAncher>
                         </li>
                       );
@@ -242,10 +252,11 @@ const HomePage = (props) => {
                   })}
 
                 <p
-                  style={{ fontSize: '3rem', marginTop: '-5rem' }}
-                  className={loadState === 'LOADING' ? '' : 'test-1'}
+                  className={`home-page__posts__loading-text ${
+                    loadState === 'LOADING' ? '' : 'dis-hidden'
+                  }`}
                 >
-                  LOADING...
+                  Loading...
                 </p>
               </div>
             </div>
