@@ -3,6 +3,8 @@ import { FaHome, FaVideo } from 'react-icons/fa';
 import { TiMessages } from 'react-icons/ti';
 import { IoMdNotifications } from 'react-icons/io';
 
+/////////////FUNCTIONS////////////////////////////////////
+
 export const isInputValid = (value, id) => {
   switch (id) {
     case 'email':
@@ -33,6 +35,25 @@ export const debounce = (input, delay = 500, func) => {
     }, delay);
   };
 };
+
+export const sortArrOfObjectsByField = (arr, field, direction = 1) => {
+  //direction = 1 means to sort from small to big
+  const unsortedArr = [...arr];
+  function compare(a, b) {
+    if (a[field] < b[field]) {
+      return -1 * direction;
+    }
+    if (a[field] > b[field]) {
+      return 1 * direction;
+    }
+    return 0;
+  }
+  return unsortedArr.sort(compare);
+};
+
+////////////////////////////////////////////////////////////
+
+/////////////////OBJECTS////////////////////////////////////////
 
 export const navbarItems = [
   { id: 1, label: 'Home', icon: <FaHome />, navTo: '/home' },
@@ -65,3 +86,5 @@ export const createPostItems = [
     accept: '.mp3,.mp4'
   }
 ];
+
+//////////////////////////////////////////////////////

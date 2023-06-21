@@ -3,9 +3,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Oval } from 'react-loader-spinner';
+import { VscTriangleUp, VscTriangleDown } from 'react-icons/vsc';
 
 import setReqAuthToken from '../utils/setReqAuthToken';
-import { createPostItems } from '../utils/sharedResources';
+import {
+  createPostItems,
+  sortArrOfObjectsByField
+} from '../utils/sharedResources';
 import { setAuthToken } from '../actions/auth';
 import { fetchOwnProfile } from '../actions/profile';
 import { fetchPosts, updatePostsIsLoaded } from '../actions/posts';
@@ -234,7 +238,19 @@ const HomePage = (props) => {
                   </ul>
                 </div>
               </div>
-              <div className="home-page__line"></div>
+              <div className="home-page__line">
+                <CustomButtonAncher
+                  className="btn-6 fw-600 fs-300"
+                  onClick={() =>
+                    console.log(
+                      'sortArrOfObjectsByField: ',
+                      sortArrOfObjectsByField(postsSlice, 'date', -1)
+                    )
+                  }
+                >
+                  Sort By <VscTriangleDown className="fs-400" />
+                </CustomButtonAncher>
+              </div>
               <div className="home-page__posts">
                 {postsSlice.length > 0 &&
                   postsSlice[0] !== undefined &&

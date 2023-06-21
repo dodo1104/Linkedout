@@ -86,3 +86,20 @@
   align-items: center;
   width: fit-content;
 }
+
+.home-page__line {
+  height: 1px;
+  background-color: rgba(var(--color-gray-light), 0.5);
+  margin-block: 1rem;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  padding-inline: 3rem;
+}
+
+.home-page__line > * {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
