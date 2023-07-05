@@ -5,7 +5,9 @@ import {
   SET_COMMENTS,
   UPDATE_POSTS_IS_LOADED,
   UPDATE_COMMENTS_IS_LOADED,
-  ADD_NEW_POST_WITH_INDEX
+  ADD_NEW_POST_WITH_INDEX,
+  SORT_POSTS_BY_TIME,
+  UPDATE_IS_POST_UPLOADED
   // ADD_NEW_COMMENT
 } from './type.js';
 
@@ -231,13 +233,14 @@ export const createNewPost =
     let newPost = JSON.parse(
       localStorage.getItem('linkedout-add-new-post-example')
     );
-    newPost = { ...newPost, id: 10 };
+    newPost = { ...newPost, _id: 10, date: '2030-08-10T10:42:21.726Z' };
     console.log('linkedout-add-new-post-example: ', newPost);
 
     // newPost.file.buffer.data = convertToBase64(newPost.file.buffer.data);
 
     dispatch(addNewPostWithIndex(newPost));
   };
+
 export const createNewComment =
   (comment, post_id = 0) =>
   async (dispatch) => {
@@ -281,6 +284,23 @@ export const createNewComment =
 
     // newPost.file.buffer.data = convertToBase64(newPost.file.buffer.data);
   };
+
+export const sortPostsByTime = (direction) => {
+  return {
+    type: SORT_POSTS_BY_TIME,
+    payload: {
+      direction
+    }
+  };
+};
+export const updateIsPostUploaded = (isPostUploaded) => {
+  return {
+    type: UPDATE_IS_POST_UPLOADED,
+    payload: {
+      isPostUploaded
+    }
+  };
+};
 
 const addNewPostWithIndex = (post, index = 0) => {
   return {

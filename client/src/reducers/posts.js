@@ -4,15 +4,19 @@ import {
   UPDATE_POSTS_IS_LOADED,
   UPDATE_COMMENTS_IS_LOADED,
   ADD_NEW_POST_WITH_INDEX,
-  ADD_NEW_COMMENT
+  ADD_NEW_COMMENT,
+  SORT_POSTS_BY_TIME,
+  UPDATE_IS_POST_UPLOADED
 } from '../actions/type';
+import { sortArrOfObjectsByField } from '../utils/sharedResources';
 
 const INITIAL_STATE = {
   posts: [],
   isLoaded: 'INIT', //INIT - first state, SUCCEEDED - got new docs, FAILED - something went wrong, DONE - got all docs (returns [])
   comments: {},
   lastEdittedCommentsPostId: null,
-  isCommentsLoaded: 'INIT' //same like 'isLoaded' but for the comments of a post
+  isCommentsLoaded: 'INIT', //same like 'isLoaded' but for the comments of a post
+  isPostUploaded: false
 };
 
 export default function posts(state = INITIAL_STATE, action) {
@@ -78,6 +82,26 @@ export default function posts(state = INITIAL_STATE, action) {
     return {
       ...state,
       posts: [...updatedPosts]
+    };
+  }
+  if (action.type === SORT_POSTS_BY_TIME) {
+    const { posts } = state;
+    const sortedPosts = sortArrOfObjectsByField(
+      posts,
+      '_id',
+      action.payload.direction
+    );
+    return {
+      ...state,
+      posts: sortedPosts
+    };
+  }
+  if (action.type === UPDATE_IS_POST_UPLOADED) {
+    const { isPostUploaded } = action.payload;
+
+    return {
+      ...state,
+      isPostUploaded
     };
   }
   // if (action.type === ADD_NEW_COMMENT) {

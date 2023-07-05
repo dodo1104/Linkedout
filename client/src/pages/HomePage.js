@@ -12,7 +12,12 @@ import {
 } from '../utils/sharedResources';
 import { setAuthToken } from '../actions/auth';
 import { fetchOwnProfile } from '../actions/profile';
-import { fetchPosts, updatePostsIsLoaded } from '../actions/posts';
+import {
+  fetchPosts,
+  updatePostsIsLoaded,
+  sortPostsByTime,
+  updateIsPostUploaded
+} from '../actions/posts';
 import { setNavbarVisibility } from '../actions/navbar';
 
 import './HomePage.css';
@@ -24,7 +29,7 @@ import NewPost from '../components/UIelements/NewPost';
 import ProfileSummaryWithBG from '../components/UIelements/ProfileSummaryWithBG';
 
 const HomePage = (props) => {
-  const { profile, posts, postsLoadingPhase } = props;
+  const { profile, posts, postsLoadingPhase, isPostUploaded } = props;
   let token = props.token
     ? props.token
     : localStorage.getItem('my-linkedin-token');
@@ -35,6 +40,7 @@ const HomePage = (props) => {
   const [postsSlice, setPostsSlice] = useState([]); //the posts that we show in the frontend (only some, and add when scrolling to the end of the page)
   const [loadState, setLoadState] = useState('FAILED');
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sortByTimeDirection, setSortByTimeDirection] = useState(1); //1 or -1
   // alert(postsSlice);
 
   const logoRef = useRef();
@@ -88,10 +94,10 @@ const HomePage = (props) => {
   }, [props.postsLoadingPhase]);
 
   useEffect(() => {
-    if (postsSlice.length < postsSliceIndex) {
-      setPostsSlice(posts.slice(0, postsSliceIndex));
-    }
-  }, [posts, postsSliceIndex]);
+    // if (postsSlice.length < postsSliceIndex) {
+    setPostsSlice(posts.slice(0, postsSliceIndex));
+    // }
+  }, [posts, postsSliceIndex, sortByTimeDirection]);
 
   useEffect(() => {
     if (posts.length <= 0) return;
@@ -156,12 +162,18 @@ const HomePage = (props) => {
   }, [loadState]);
 
   useEffect(() => {
-    if (!posts || !postsSlice) return;
-    if (posts[0] != postsSlice[0]) {
-      setPostsSlice([posts[0], ...postsSlice]);
-      setPostsSliceIndex(postsSliceIndex + 1);
-    }
+    if (!posts.length || !postsSlice.length) return;
+
+    console.log('sorted posts: ', posts);
+    console.log('postSlice: ', postsSlice);
   }, [posts, postsSlice]);
+
+  useEffect(() => {
+    if (isPostUploaded) {
+      setPostsSliceIndex(postsSliceIndex + 1);
+      props.updateIsPostUploaded(false);
+    }
+  }, [isPostUploaded, posts, postsSlice]);
 
   const toggleModal = (isOpen) => {
     setIsModalOpen(isOpen);
@@ -241,14 +253,17 @@ const HomePage = (props) => {
               <div className="home-page__line">
                 <CustomButtonAncher
                   className="btn-6 fw-600 fs-300"
-                  onClick={() =>
-                    console.log(
-                      'sortArrOfObjectsByField: ',
-                      sortArrOfObjectsByField(postsSlice, 'date', -1)
-                    )
-                  }
+                  onClick={() => {
+                    setSortByTimeDirection(sortByTimeDirection > 0 ? -1 : 1);
+                    props.sortPostsByTime(sortByTimeDirection > 0 ? -1 : 1);
+                  }}
                 >
-                  Sort By <VscTriangleDown className="fs-400" />
+                  Sort By Time
+                  {sortByTimeDirection > 0 ? (
+                    <VscTriangleUp className="fs-400" />
+                  ) : (
+                    <VscTriangleDown className="fs-400" />
+                  )}
                 </CustomButtonAncher>
               </div>
               <div className="home-page__posts">
@@ -297,7 +312,8 @@ const mapStateToProps = ({ auth, profile, posts }) => {
     token: auth.token,
     profile: profile.profile,
     posts: posts.posts,
-    postsLoadingPhase: posts.isLoaded
+    postsLoadingPhase: posts.isLoaded,
+    isPostUploaded: posts.isPostUploaded
   };
 };
 
@@ -306,5 +322,7 @@ export default connect(mapStateToProps, {
   setNavbarVisibility,
   fetchOwnProfile,
   fetchPosts,
-  updatePostsIsLoaded
+  updatePostsIsLoaded,
+  sortPostsByTime,
+  updateIsPostUploaded
 })(HomePage);

@@ -5,7 +5,7 @@ import { AiFillCloseCircle } from 'react-icons/ai';
 import './NewPost.css';
 import { createPostItems } from '../../utils/sharedResources';
 import CustomButtonAncher from './CustomButtonAncher';
-import { createNewPost } from '../../actions/posts';
+import { createNewPost, updateIsPostUploaded } from '../../actions/posts';
 
 import ImageFile from './ImageFile';
 import { connect } from 'react-redux';
@@ -98,6 +98,7 @@ const NewPost = ({ avatar, name, toggleModal, ...props }) => {
                 text,
                 file
               });
+            props.updateIsPostUploaded(true);
             toggleModal(false);
           }}
         >
@@ -109,5 +110,6 @@ const NewPost = ({ avatar, name, toggleModal, ...props }) => {
 };
 
 export default connect(null, {
-  createNewPost
+  createNewPost,
+  updateIsPostUploaded
 })(NewPost);
